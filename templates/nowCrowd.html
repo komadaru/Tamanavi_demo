@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Crowd Info</title>
+    <link rel="stylesheet" href="static/css/nowCrowd.css">
+    <script type="text/javascript" src="static/js/nowCrowd.js"></script>
+</head>
+
+<body>
+    <div id="header">リアルタイム混雑度
+        <button id="home" onclick="location.href='/'">
+            <img src="static/image/home.png">
+        </button>
+    </div>
+    <div id="body">
+        <div id="IconBlock">
+            <div id="nowIcon"></div>
+            <p>現在の混雑度: </p>
+            <p id="rate"></p>
+            <div id="listIcon"></div>
+            <h1>混雑度の投票にご協力ください</h1>
+        </div>
+        <ul id="vote-legend">
+            <li>ガラガラ</li>
+            <li>座れる程度</li>
+            <li>肩が触れ合う</li>
+            <li>満員</li>
+        </ul>
+    </div>
+    <div id="subMenu">
+        <button id="nowCrowd"><span>リアルタイム</span><span>混雑度</span></button>
+        <button id="busInfo" onclick="location.href='busInfo'"><span>バスの</span><span>位置情報</span></button>
+        <button id="postCrowd" onclick="location.href='postCrowd'">過去の混雑度</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>postCrowd Info</title>
+    <link rel="stylesheet" href="/static/css/postCrowd.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
+    <script type="text/javascript" src="/static/js/postCrowd.js"></script>
+</head>
+
+<body>
+    <div id="header">過去の混雑度
+        <button id="home" onclick="location.href='/'">
+            <img src="static/image/home.png">
+        </button>
+    </div>
+    <div id="body">
+        <div id="IconBlock">
+            <div id="graph">
+                <div class="chart-container">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+            <div id="vote"></div>
+            <div id="WeekButtons">
+                <button id="monday" onclick="updateChart(0)">月</button>
+                <button id="tuesday" onclick="updateChart(1)">火</button>
+                <button id="wednesday" onclick="updateChart(2)">水</button>
+                <button id="thursday" onclick="updateChart(3)">木</button>
+                <button id="friday" onclick="updateChart(4)">金</button>
+                <button id="saturday" onclick="updateChart(5)">土</button>
+            </div>
+            
+        </div>
+    </div>
+    <div id="subMenu">
+        <button id="nowCrowd" onclick="location.href='nowCrowd'"><span>リアルタイム</span><span>混雑度</span></button>
+        <button id="busInfo" onclick="location.href='busInfo'"><span>バスの</span><span>位置情報</span></button>
+        <button id="postCrowd">過去の混雑度</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>ログイン画面</h1>
+    <form method="POST">
+        <label for="">ユーザー名</label>
+        <input type="text" name="username" required>
+        <label for="">パスワード</label>
+        <input type="password" name="password" required>
+        <input type="submit" value="ログイン">
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="/static/css/form.css">
+    <title>Form Page</title>
+</head>
+
+<body>
+    <h1>アンケート</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <p>
+            <label>学部:
+                <select name="faculty">学部
+                    <option value="経済学部">経済学部</option>
+                    <option value="社会学部">社会学部</option>
+                    <option value="スポーツ健康学部">スポーツ健康学部</option>
+                    <option value="現代福祉学部">現代福祉学部</option>
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>学年:
+                <select name="grade">学年
+                    <option value="1年">1年</option>
+                    <option value="2年">2年</option>
+                    <option value="3年">3年</option>
+                    <option value="4年">4年</option>
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>サークル:
+                <input type="text" name="club">
+            </label>
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <a href="/">トップページへ</a>
+</body>
+</html>

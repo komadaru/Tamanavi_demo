@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+        crossorigin=""/>
+         <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
+        <style>
+            #mapid {
+                height: 500px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>GPSシミュレーター</h1>
+        <div id="mapid"></div>
+        <button onclick="simulate(); return false">実験</button>
+        <label>サーバーに送信する<input type="checkbox" id="form-sends"></label>
+        <label>時間倍率×<input type="number" id="form-timescale" value="1" max="10" min="0.1" step="0.1"></label>
+        <label>ルート
+            <select id="form-log-file" onChange="getGpsLog();">
+                <option value="Log20220625-120543 (1)">総合棟～体育館</option>
+                <option value="Log20220625-130529">体育館?～EGGDOME</option>
+                <option value="Log20220625-135248">EGGDOME～スポ健</option>
+            </select>
+        </label>
+        <label>バス
+            <select id="busId">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </label>
+        次のログまで：<span id="next-log-time">0</span>秒(元は<span id="next-log-time-true">0</span>秒)
+    </body>
+    <script>
+        const data = []
+        const map = L.map('mapid')
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+        const markers = L.featureGroup()
+
+        function getGpsLog() {
+            const logFile = document.getElementById("form-log-file").value
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", `http://{{request.host}}/gps/static/test/${logFile}.gpx`)
+            xhr.overrideMimeType("text/xml")
+            xhr.send(null)
+            xhr.onload = () => {
+                const xml = xhr.responseXML
+                const points = xml.querySelector("gpx trk trkseg").children
+                data.length = 0
+                for (let i = 0; i < points.length; i++){
+                    data.push({
+                        "id": i,
+                        "latitude": points[i].getAttribute("lat"),
+                        "longitude": points[i].getAttribute("lon"),
+                        "time": points[i].children[0].innerHTML.slice(0, -1)
+                    })
+                }
+                map.setView([data[0]["latitude"], data[0]["longitude"]], 17);
+                console.log(`Gps data ready (${logFile})`)
+            }
+        }
+
+        function simulate() {
+            if (data.length === 0) {
+                console.error("Gps data not ready")
+                return
+            }
+            console.log("Start")
+            const startTime = new Date()
+            markers.eachLayer(marker => map.removeLayer(marker))
+            markers.clearLayers()
+            const timescale = parseInt(document.getElementById("form-timescale").value)
+            const busId = document.getElementById("busId").value
+            let total_time = 0
+            for (let i = 0; i < data.length; i++) {
+                (function(i){
+                    let interval = 0
+                    let nextInterval = Infinity
+                    const currentTime = new Date(data[i]?.time)
+                    const prevTime = new Date(data[i-1]?.time)
+                    const nextTime = new Date(data[i+1]?.time)
+                    if (i !== 0){
+                        interval = currentTime - prevTime
+                    }
+                    if (i !== data.length - 1) {
+                        nextInterval = nextTime - currentTime
+                    }
+                    total_time += interval / timescale
+                    const d = data[i]
+                    const params = {
+                            "latitude": d["latitude"],
+                            "longitude": d["longitude"],
+                            "bus": busId,
+                            "accel" : "0",
+                            "time": new Date(startTime.getTime() + total_time * timescale + 9 * 60 * 60 * 1000).toISOString().slice(0, -1)
+                        }
+                    const query_params = new URLSearchParams(params)   
+                    const sends = document.getElementById("form-sends").checked
+                    setTimeout((nextInterval, timescale) => {
+                        if (sends) {
+                            fetch("http://{{request.host}}/gps/register?" + query_params)
+                        }
+                        const marker = L.marker([d["latitude"], d["longitude"]])
+                        marker.addTo(map);
+                        markers.addLayer(marker);
+                        map.fitBounds(markers.getBounds());
+                        document.getElementById("next-log-time").innerHTML = nextInterval / timescale / 1000
+                        document.getElementById("next-log-time-true").innerHTML = nextInterval / 1000
+                    }, total_time, nextInterval, timescale)
+                })(i)
+            }
+        }
+        getGpsLog()
+    </script>
+</html>

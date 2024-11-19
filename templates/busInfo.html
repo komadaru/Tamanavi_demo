@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Bus Info</title>
+    <link rel="stylesheet" href="/static/css/busInfo.css">
+    <script type="text/javascript" src="/static/js/busInfo.js"></script>
+</head>
+
+<body>
+    <div id="header">バスの位置情報
+        <button id="home" onclick="location.href='/'">
+            <img src="static/image/home.png">
+        </button>
+    </div>
+    <div id="stations"></div>
+    <div id="subMenu">
+        <button id="nowCrowd" onclick="location.href='nowCrowd'"><span>リアルタイム</span><span>混雑度</span></button>
+        <button id="busInfo"><span>バスの</span><span>位置情報</span></button>
+        <button id="postCrowd" onclick="location.href='postCrowd'">過去の混雑度</button>
+    </div>
+</body>
+
+</html>

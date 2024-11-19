@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>GPS Test Page</title>
+    </head>
+    <body> <!-- ここから本文 -->
+      <h1>GET テスト</h1>
+      <!-- GET method で GPS データを送信する -->
+      <ul>
+	<li>
+	  <a href="register?latitude=35.61495742746106&longitude=139.29611362275196&bus=1&preStop=1">
+	    北緯 35.61495742746106 東経 統計139.29611362275196</a></li>
+	<li>
+	  <a href="register?latitude=35.619039216435645&longitude=139.29289497195217&bus=1&stop=0">
+	    北緯 35.619039216435645, 東経139.29289497195217</a>
+      </ul>
+      
+      <h1>POST テスト</h1>
+      <!-- POST method で GPS データを送信する -->
+      <form action="register" method="POST">
+	<input type="hidden" name = "bus" value="1">
+	<input type="hidden" name = "latitude" value="34.61495742746106">
+	<input type="hidden" name = "longitude" value="138.29611362275196">
+	<input type="hidden" name = "stop" value="0">
+	<input type="submit" value = "send0">
+      </form>
+      <form action="register" method="POST">
+	<input type="hidden" name = "bus" value="1">
+	<input type="hidden" name = "latitude" value="34.619039216435645">
+	<input type="hidden" name = "longitude" value="138.29289497195217">
+	<input type="hidden" name = "stop" value="0">
+	<input type="submit" value = "send1">
+      </form>
+      <ul>
+	<li>
+	  <a href="/"> トップページ</a></li>
+      </ul>
+    </body>
+</html> 

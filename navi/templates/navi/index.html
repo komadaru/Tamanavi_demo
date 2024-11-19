@@ -1,0 +1,86 @@
+<!DOCTYPE html> <!-- HTML であることを示す -->
+<html lang="ja"> <!-- 日本語を選択 -->
+    <head> <!-- ヘッダ部分の開始: ヘッダには本文が始まる前の設定を書く-->
+        <meta charset="UTF-8" /> <!-- 文字コードとして、UTF-8 を指定 -->
+        <title>First Page</title> <!-- ページタイトル -->
+	<script type="text/javascript">
+	  // インターバルタイマーの ID管理用の変数
+	  var timerId = null;
+
+	  // インターバルタイマーの呼び出し間隔を設定する変数
+	  var interval = 1000;
+	  
+	  window.addEventListener("load", function() {
+	      // インターバルタイマーの設定
+	      timerId = setInterval(showGps, interval);
+	      
+	      // ページがタブなどに隠されたら、インターバルタイマーを停止
+	      document.addEventListener("visibilitychange", function() {
+		  // console.log(document.visibilityState);
+		  if(document.visibilityState == "hidden") {
+		      // 隠れたら停止
+		      if(timerId != null) {
+			  clearInterval(timerId);
+			  timerId = null;
+		      }
+		  } else if(document.visibilityState == "visible") {
+		      // 表示されたら、タイマーを再開
+		      if(timerId == null) {
+			  timerId = setInterval(showGps, interval);
+		      }
+		  }
+	      });
+	  }, false);
+	  
+	  function showGps() {
+	      // fetch は、順に非同期に .then() 関数を呼び出す
+	      fetch('getGps')
+		  .then( response => {
+		      // values = response.json()
+		      // まずは、JSON の解析
+		      return response.json();
+		  })
+		  .then( json => {
+		      // 続いて、JSON を使って、HTML 要素を書き替える
+		      /*
+		      var test = document.getElementById("test");
+		      console.log(json);
+		      alert(json)
+		      test.innerHTML = json;
+		      */
+		      // id="current_gps" である table 要素を検索
+		      var gps = document.getElementById("current_gps");
+		      // 続いて、1行を表す複数の tr タグを検索
+		      var tr_tags = gps.getElementsByTagName("tr");
+		      // tr タグの1行目は、表のヘッダなので、i = 1 からデータを置く
+		      for (var i = 1; i < tr_tags.length; i++) {
+			  var tr_tag = tr_tags[i];
+			  var tags = tr_tag.children;
+			  tags[0].innerHTML = json[i - 1].bus;
+			  tags[1].innerHTML = json[i - 1].latitude;
+			  tags[2].innerHTML = json[i - 1].longitude;
+			  // tags[2].innerHTML = "test"
+		      }
+		  })
+	  }
+	</script>
+    </head>
+    <body> <!-- ここから本文 -->
+      <h1>GPS情報</h1>
+      <h2>最後のGPS観測データ</h2>
+      <table id="current_gps" border="1">
+	<tr><th>バスID</th><th>北緯</th><th>東経</th></tr>
+	{% for location in locations.values() %}
+	<tr><td>{{ location.bus }}</td>
+	  <td>{{ location.latitude }}</td>
+	  <td>{{ location.longitude }}</td></tr>
+	{% endfor %}
+      </table>
+      <h1>トップに戻る</h1>
+      <ul>
+	<li> <a href="/"> トップページ </a> </li>
+	<!-- 表示テスト用のダミータグ -->
+	<!-- <li id="test"> テスト </li> -->
+      </ul>
+    </body>
+</html> 

@@ -1,0 +1,105 @@
+:root {
+    /* header, body, subMenuのheightの合計値を100%になるよう設定 */
+    --header_rate: 4;
+    --subMenu_rate: 10;
+    --body_rate: calc(100 - var(--header_rate) - var(--subMenu_rate));
+    --header_height: calc(var(--header_rate) * 1%);
+    --subMenu_height: calc(var(--subMenu_rate) * 1%);
+    --body_height: calc(var(--body_rate) * 1%);
+}
+
+html,
+body {
+    /* background-color: #eeeeee; */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0%;
+    overflow: hidden;
+}
+
+#header:not(#home) {
+    background-color: #f0f0f0;
+    height: var(--header_height);
+    text-align: center;
+    vertical-align: middle;
+    font-size: calc(var(--header_rate) * 0.7 * 1vh);
+}
+
+#home {
+    position: absolute;
+    width: 60px;
+    top: 5%;
+    right: 5px;
+    z-index: 2;
+    opacity: 0.7;
+    border-radius: 50%;
+}
+
+#home > img{
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+}
+
+#body {
+    position: relative;
+    height: var(--body_height);
+    width: 100%;
+    overflow: visible;
+}
+
+#subMenu {
+    display: flex;
+    width: 100%;
+    height: var(--subMenu_height);
+    /* border-top: 2px solid; */
+}
+
+#subMenu>* {
+    border: 1px none;
+    border-radius: 10px;
+    height: 75%;
+    width: 25%;
+    margin: auto;
+}
+
+#subMenu span {
+    display: inline-block;
+}
+
+#body {
+    align-items: center;
+}
+
+
+/* #IconBlock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+} */
+
+#WeekButtons {
+    display: flex;
+}
+
+#WeekButtons>* {
+    width: 13%;
+    height: 20%;
+    margin: auto;
+    padding: 2%;
+    font-size: 150%;
+    border-radius: 5px;
+}
+
+#postCrowd {
+    background-color: #5454547a;
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 70vh;
+    width: 80vw;
+}

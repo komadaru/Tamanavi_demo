@@ -1,0 +1,43 @@
+html,
+body {
+    font-size: 150%;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+label {
+    text-align: justify;
+}
+
+select,
+input {
+    width: 50vw;
+    font-size: 100%;
+    border-radius: 10px;
+    color: white;
+    background-color: #9ad0ec;
+    border-color: #9ad0ec;
+}
+
+select {
+    border-top: 2px solid;
+    border-top-color: #37708d;
+    border-left: 2px solid;
+    border-left-color: #37708d;
+}
+
+a {
+    background-color: #9ad0ec;
+    border-radius: 10px;
+    border-bottom: 3px solid;
+    border-bottom-color: #37708d;
+    border-right: 3px solid;
+    border-right-color: #37708d;
+}

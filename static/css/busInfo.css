@@ -1,0 +1,314 @@
+:root {
+    /* header, stations, subMenuのheightの合計値を100%になるよう設定 */
+    --header_rate: 4;
+    --subMenu_rate: 10;
+    --stations_rate: calc(100 - var(--header_rate) - var(--subMenu_rate));
+    --header_height: calc(var(--header_rate) * 1%);
+    --subMenu_height: calc(var(--subMenu_rate) * 1%);
+    --stations_height: calc(var(--stations_rate) * 1%);
+    --Sta_a: "0;"
+}
+
+html,
+body {
+    /* background-color: #eeeeee; */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0%;
+    overflow: hidden;
+}
+
+* {
+    color: #404040;
+}
+
+#header:not(#home) {
+    background-color: #f0f0f0;
+    height: var(--header_height);
+    text-align: center;
+    vertical-align: middle;
+    font-size: calc(var(--header_rate) * 0.7 * 1vh);
+}
+
+#home {
+    position: absolute;
+    width: 60px;
+    top: 5%;
+    right: 5px;
+    z-index: 2;
+    opacity: 0.7;
+    border-radius: 50%;
+}
+
+#home > img{
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+}
+
+#stations {
+    height: var(--stations_height);
+    width: 100%;
+    overflow: visible;
+}
+
+#subMenu {
+    display: flex;
+    width: 100%;
+    height: var(--subMenu_height);
+    /* border-top: 2px solid; */
+}
+
+#subMenu>* {
+    border: 1px none;
+    border-radius: 10px;
+    height: 75%;
+    width: 25%;
+    margin: auto;
+}
+
+#subMenu span {
+    display: inline-block;
+}
+
+.station {
+    display: inline;
+    /* border: 1px solid #727272; */
+    /* border-radius: 7px; */
+    background-color: #f0f0f0;
+    text-align: center;
+    font-size: 150%;
+    padding: -20%;
+    margin: auto;
+    position: relative;
+}
+
+.ao {
+    border: 5px solid;
+    border-color: rgb(80, 200, 255);
+}
+
+.other {
+    border: 5px solid;
+    border-color: rgb(255, 80, 80);
+}
+
+.both {
+    border: 5px solid;
+    border-image: linear-gradient(to bottom left, rgb(80, 200, 255) 50%, rgb(255, 80, 80) 50%);
+    border-image-slice: 0.5;
+}
+
+.top>p{
+    outline: 5px dashed;
+    outline-color:  rgb(80, 200, 255);
+}
+
+
+.bottom>p{
+    outline: 5px dashed;
+    outline-color:  rgb(80, 200, 255);
+}
+
+.station>p {
+    position: relative;
+    padding-block: 0.3em;
+    margin: 0%;
+}
+
+.arrow {
+    border: 4px solid;
+    border-color: transparent;
+    position: relative;
+}
+
+.arrow>:not(img) {
+    margin: 0%;
+    display: inline;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 20px solid;
+}
+
+#stations .rest {
+    display: none;
+}
+
+#stations .stop_right,
+#stations .stop_left {
+    display: block;
+    position: absolute;
+    object-fit: cover;
+}
+
+#stations .prev,
+#stations .next {
+    display: block;
+    position: absolute;
+    object-fit: cover;
+}
+
+#busInfo {
+    background-color: #5454547a;
+}
+
+.time{
+    width: 2.5em;
+    font-size: 16px;
+    position: absolute;
+    background-color: #cead40;
+    color: white;
+    border-radius: 25%;
+}
+
+/* 縦画面 */
+@media screen and (orientation: portrait) {
+    #stations {
+        display: flex;
+        flex-direction: column;
+    }
+    .station {
+        width: 70%;
+        align-items: center;
+        height: fit-content;
+    }
+    .arrow {
+        width: 70%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .arrow :first-child {
+        border-color: #727272 transparent transparent transparent;
+        left: 20%;
+        transform: translateX(-50%) translateY(-25%);
+    }
+    .arrow :last-child {
+        border-color: transparent transparent #727272 transparent;
+        left: 80%;
+        transform: translateX(-50%) translateY(-75%);
+    }
+    #stations .stop_right {
+        height: 90%;
+        top: 5%;
+        left: 85%;
+    }
+    #stations .stop_left {
+        height: 90%;
+        top: 5%;
+        left: 5%;
+    }
+    #stations .prev {
+        height: 4vh;
+        left: 85%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    #stations .next {
+        height: 4vh;
+        left: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .top{
+        border: 5px solid;
+        border-image: linear-gradient(to left, rgb(80, 200, 255) 50%, transparent 50%);
+        border-image-slice: 0.5;
+    }
+    .bottom{
+        border: 5px solid;
+        border-image: linear-gradient(to right, rgb(80, 200, 255) 50%, transparent 50%);
+        border-image-slice: 0.5;
+    }
+    .time{
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 1%;
+    }
+    .p_top{
+        left: 102%;
+    }
+    .p_bottom{
+        right: 102%;
+    }
+}
+
+/* 横画面 */
+@media screen and (orientation: landscape) {
+    #stations {
+        margin-inline: 10%;
+        width: 80%;
+        display: inline-flex;
+    }
+    .station {
+        height: 70%;
+        align-items: center;
+        width: fit-content;
+    }
+    .station>p {
+        -ms-writing-mode: tb-rl;
+        align-items: center;
+        writing-mode: vertical-rl;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 100%;
+    }
+    .arrow {
+        height: 70%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .arrow :first-child {
+        border-color: transparent #727272 transparent transparent;
+        top: 20%;
+        transform: translateX(-75%) translateY(-50%);
+    }
+    .arrow :last-child {
+        border-color: transparent transparent transparent #727272;
+        top: 80%;
+        transform: translateX(-25%) translateY(-50%);
+    }
+    #stations .stop_left {
+        width: 90%;
+        left: 5%;
+        top: 85%;
+    }
+    #stations .stop_right {
+        width: 90%;
+        left: 5%;
+        top: 5%;
+    }
+    #stations .prev {
+        width: 4vh;
+        top: 5%;
+        transform: translateX(-50%);
+    }
+    #stations .next {
+        width: 4vh;
+        top: 85%;
+        transform: translateX(-50%);
+    }
+    .top{
+        border: 5px solid;
+        border-image: linear-gradient(to bottom, rgb(80, 200, 255) 50%, transparent 50%);
+        border-image-slice: 0.5;
+    }
+    .bottom{
+        border: 5px solid;
+        border-image: linear-gradient(to top, rgb(80, 200, 255) 50%, transparent 50%);
+        border-image-slice: 0.5;
+    }
+    .time{
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5%;
+
+    }
+    .p_top{
+        top: -10%;
+    }
+    .p_bottom{
+        top: 105%;
+    }
+}

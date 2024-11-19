@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Top Page</title>
+    <link rel="stylesheet" href="static/css/top_page.css">
+</head>
+
+<body>
+    <div id="anke-to">
+        <p>今後のサービス向上のため、アンケートにご協力ください
+        </p>
+        <a href="/userSetting">こちら</a>
+    </div>
+    <button id="busInfo" onclick="location.href='busInfo'">
+        <img src="static/image/location.png" height="50px">
+        <p>バスの位置情報を確認する</p></button>
+    <div id="subMenu">
+        <button id="serviceInfo" onclick="location.href='nowCrowd'">
+            <img src="static/image/bus.png" height="50px">運行情報</button>
+        <button id="timetable"><img src="static/image/busstop.png" height="50px">時刻表
+        <div class="list">
+            <ul>
+                <li><a href="aobus" target="_blank">青バス時刻表</a></li>
+                <li><a href="https://www.kanachu.co.jp/dia/diagram/search?k=%E6%B3%95%E6%94%BF%E5%A4%A7%E5%AD%A6%E5%85%A5%E5%8F%A3&rt=0&t=0&sdid=00130508" target="_blank">神奈中バス時刻表</a></li>
+                <li><a href="https://transfer.navitime.biz/bus-navi/pc/diagram/BusCourseSearch?busstopId=00021279" target="_blank">京王バス時刻表</a></li>
+            </ul>
+        </div>
+        </button>
+        <button id="setting" onclick="location.href='userSetting'">
+            <img src="static/image/setting.png" height="50px">設定</button>
+    </div>
+</body>
+
+</html>

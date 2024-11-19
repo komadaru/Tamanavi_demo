@@ -1,0 +1,148 @@
+:root {
+    /* header, body, subMenuのheightの合計値を100%になるよう設定 */
+    --header_rate: 4;
+    --subMenu_rate: 10;
+    --body_rate: calc(100 - var(--header_rate) - var(--subMenu_rate));
+    --header_height: calc(var(--header_rate) * 1%);
+    --subMenu_height: calc(var(--subMenu_rate) * 1%);
+    --body_height: calc(var(--body_rate) * 1%);
+}
+
+html,
+body {
+    /* background-color: #eeeeee; */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0%;
+    overflow: hidden;
+}
+
+#header:not(#home) {
+    background-color: #f0f0f0;
+    height: var(--header_height);
+    text-align: center;
+    vertical-align: middle;
+    font-size: calc(var(--header_rate) * 0.7 * 1vh);
+}
+
+#home {
+    position: absolute;
+    width: 60px;
+    top: 5%;
+    right: 5px;
+    z-index: 2;
+    opacity: 0.7;
+    border-radius: 50%;
+}
+
+#home > img{
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+}
+
+#body {
+    position: relative;
+    height: var(--body_height);
+    width: 100%;
+    overflow: visible;
+}
+
+#subMenu {
+    display: flex;
+    width: 100%;
+    height: var(--subMenu_height);
+    /* border-top: 2px solid; */
+}
+
+#subMenu>* {
+    border: 1px none;
+    border-radius: 10px;
+    height: 75%;
+    width: 25%;
+    margin: auto;
+}
+
+#subMenu span {
+    display: inline-block;
+}
+
+
+#IconBlock {
+    position: absolute;
+    width: 100%;
+    top: 60%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    text-align: center;
+    font-size:150%;
+}
+
+#IconBlock>h1 {
+    font-size: 1em;
+}
+
+#vote-legend {
+    position: absolute;
+    top: 0%;
+    left: 2%;
+    list-style-type: none;
+    padding: 1em 2em;
+    background-color: #303030;
+    opacity: 0.8;
+    border-radius: 5px;
+}
+
+#vote-legend>li:nth-child(1) {
+    color: #adff2f;
+}
+
+#vote-legend>li:nth-child(2) {
+    color: #ffff00;
+}
+
+#vote-legend>li:nth-child(3) {
+    color: #ffa500;
+}
+
+#vote-legend>li:nth-child(4) {
+    color: #ff0000;
+}
+
+#nowCrowd {
+    background-color: #5454547a;
+}
+
+#nowIcon {
+    text-align: center;
+}
+
+#nowIcon>* {
+    width: 200px;
+}
+
+#listIcon {
+    text-align: center;
+}
+
+#listIcon>button>img {
+    width: 100%;
+}
+
+#listIcon>button {
+    width: 80px;
+    border: 4px solid;
+    border-color: #808080;
+    border-radius: 10px;
+    background-color: #303030;
+    margin: 1%;
+}
+
+#listIcon>button:active {
+    background-color: black;
+}
+
+p{
+    display: inline;
+}
